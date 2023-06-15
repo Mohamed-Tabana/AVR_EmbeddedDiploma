@@ -1,0 +1,487 @@
+
+ALLinOne.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000226  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000a  00800060  00000226  0000029a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000002a4  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000002d4  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000048  00000000  00000000  00000310  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000881  00000000  00000000  00000358  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000006a0  00000000  00000000  00000bd9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000449  00000000  00000000  00001279  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000078  00000000  00000000  000016c4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000035a  00000000  00000000  0000173c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000298  00000000  00000000  00001a96  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000040  00000000  00000000  00001d2e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+   8:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+   c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  10:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  14:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  18:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  1c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  20:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  24:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  28:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  2c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  30:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  34:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  38:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  3c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  40:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  44:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  48:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  4c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  50:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e6 e2       	ldi	r30, 0x26	; 38
+  68:	f2 e0       	ldi	r31, 0x02	; 2
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	aa 36       	cpi	r26, 0x6A	; 106
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+  76:	0e 94 41 00 	call	0x82	; 0x82 <main>
+  7a:	0c 94 11 01 	jmp	0x222	; 0x222 <_exit>
+
+0000007e <__bad_interrupt>:
+  7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000082 <main>:
+#include <util/delay.h>
+#include "SEGMENT.h"
+
+int main(void)
+{
+	DDRA=0xFF;
+  82:	8f ef       	ldi	r24, 0xFF	; 255
+  84:	8a bb       	out	0x1a, r24	; 26
+	DDRB=0xFF;
+  86:	87 bb       	out	0x17, r24	; 23
+	DDRD=0x00;
+  88:	11 ba       	out	0x11, r1	; 17
+	PORTD=0xFF;
+  8a:	82 bb       	out	0x12, r24	; 18
+	u8 x=0;
+	segment_print_mlx(x);
+  8c:	80 e0       	ldi	r24, 0x00	; 0
+  8e:	0e 94 bc 00 	call	0x178	; 0x178 <segment_print_mlx>
+	u8 flag=0;
+	u8 flagMOD=0;
+  92:	d0 e0       	ldi	r29, 0x00	; 0
+	DDRB=0xFF;
+	DDRD=0x00;
+	PORTD=0xFF;
+	u8 x=0;
+	segment_print_mlx(x);
+	u8 flag=0;
+  94:	f1 2c       	mov	r15, r1
+{
+	DDRA=0xFF;
+	DDRB=0xFF;
+	DDRD=0x00;
+	PORTD=0xFF;
+	u8 x=0;
+  96:	c0 e0       	ldi	r28, 0x00	; 0
+	u8 flag=0;
+	u8 flagMOD=0;
+	while (1)
+	{
+
+		if (flagMOD==0)
+  98:	d1 11       	cpse	r29, r1
+  9a:	67 c0       	rjmp	.+206    	; 0x16a <main+0xe8>
+		{
+				if (flag==0)
+  9c:	f1 10       	cpse	r15, r1
+  9e:	04 c0       	rjmp	.+8      	; 0xa8 <main+0x26>
+				{
+					x++;
+  a0:	cf 5f       	subi	r28, 0xFF	; 255
+					if (x==100)
+  a2:	c4 36       	cpi	r28, 0x64	; 100
+  a4:	09 f4       	brne	.+2      	; 0xa8 <main+0x26>
+						x=0;
+  a6:	c0 e0       	ldi	r28, 0x00	; 0
+							segment_print_mlx(x);
+						}
+					}
+					if(!READ_BIT(PIND,2))
+					{
+						x=0;
+  a8:	00 e0       	ldi	r16, 0x00	; 0
+  aa:	10 e0       	ldi	r17, 0x00	; 0
+  ac:	26 c0       	rjmp	.+76     	; 0xfa <main+0x78>
+				{
+	
+				}
+				for (int i=0;i<300;i++)
+				{
+					if(!READ_BIT(PIND,4))
+  ae:	84 99       	sbic	0x10, 4	; 16
+  b0:	0a c0       	rjmp	.+20     	; 0xc6 <main+0x44>
+					{
+						flagMOD=!flagMOD;
+  b2:	81 e0       	ldi	r24, 0x01	; 1
+  b4:	d1 11       	cpse	r29, r1
+  b6:	80 e0       	ldi	r24, 0x00	; 0
+  b8:	d8 2f       	mov	r29, r24
+						
+						while(!READ_BIT(PIND,4))
+  ba:	03 c0       	rjmp	.+6      	; 0xc2 <main+0x40>
+						{
+							segment_print_mlx(x);
+  bc:	8c 2f       	mov	r24, r28
+  be:	0e 94 bc 00 	call	0x178	; 0x178 <segment_print_mlx>
+				{
+					if(!READ_BIT(PIND,4))
+					{
+						flagMOD=!flagMOD;
+						
+						while(!READ_BIT(PIND,4))
+  c2:	84 9b       	sbis	0x10, 4	; 16
+  c4:	fb cf       	rjmp	.-10     	; 0xbc <main+0x3a>
+						{
+							segment_print_mlx(x);
+						}
+					}
+					if(!READ_BIT(PIND,3))
+  c6:	83 99       	sbic	0x10, 3	; 16
+  c8:	0a c0       	rjmp	.+20     	; 0xde <main+0x5c>
+					{
+						flag=!flag;
+  ca:	81 e0       	ldi	r24, 0x01	; 1
+  cc:	f1 10       	cpse	r15, r1
+  ce:	80 e0       	ldi	r24, 0x00	; 0
+  d0:	f8 2e       	mov	r15, r24
+			
+						while(!READ_BIT(PIND,3))
+  d2:	03 c0       	rjmp	.+6      	; 0xda <main+0x58>
+						{
+							segment_print_mlx(x);
+  d4:	8c 2f       	mov	r24, r28
+  d6:	0e 94 bc 00 	call	0x178	; 0x178 <segment_print_mlx>
+					}
+					if(!READ_BIT(PIND,3))
+					{
+						flag=!flag;
+			
+						while(!READ_BIT(PIND,3))
+  da:	83 9b       	sbis	0x10, 3	; 16
+  dc:	fb cf       	rjmp	.-10     	; 0xd4 <main+0x52>
+						{
+							segment_print_mlx(x);
+						}
+					}
+					if(!READ_BIT(PIND,2))
+  de:	82 9b       	sbis	0x10, 2	; 16
+  e0:	04 c0       	rjmp	.+8      	; 0xea <main+0x68>
+  e2:	06 c0       	rjmp	.+12     	; 0xf0 <main+0x6e>
+					{
+						x=0;
+						while(!READ_BIT(PIND,2))
+						{segment_print_mlx(x);}
+  e4:	80 e0       	ldi	r24, 0x00	; 0
+  e6:	0e 94 bc 00 	call	0x178	; 0x178 <segment_print_mlx>
+						}
+					}
+					if(!READ_BIT(PIND,2))
+					{
+						x=0;
+						while(!READ_BIT(PIND,2))
+  ea:	82 9b       	sbis	0x10, 2	; 16
+  ec:	fb cf       	rjmp	.-10     	; 0xe4 <main+0x62>
+							segment_print_mlx(x);
+						}
+					}
+					if(!READ_BIT(PIND,2))
+					{
+						x=0;
+  ee:	c0 e0       	ldi	r28, 0x00	; 0
+						while(!READ_BIT(PIND,2))
+						{segment_print_mlx(x);}
+					}
+					segment_print_mlx(x);
+  f0:	8c 2f       	mov	r24, r28
+  f2:	0e 94 bc 00 	call	0x178	; 0x178 <segment_print_mlx>
+				}
+				if (flag==1)
+				{
+	
+				}
+				for (int i=0;i<300;i++)
+  f6:	0f 5f       	subi	r16, 0xFF	; 255
+  f8:	1f 4f       	sbci	r17, 0xFF	; 255
+  fa:	0c 32       	cpi	r16, 0x2C	; 44
+  fc:	81 e0       	ldi	r24, 0x01	; 1
+  fe:	18 07       	cpc	r17, r24
+ 100:	b4 f2       	brlt	.-84     	; 0xae <main+0x2c>
+ 102:	ca cf       	rjmp	.-108    	; 0x98 <main+0x16>
+			else
+			{
+				
+				for (int i=0;i<300;i++)
+				{
+					if(!READ_BIT(PIND,4))
+ 104:	84 9b       	sbis	0x10, 4	; 16
+ 106:	04 c0       	rjmp	.+8      	; 0x110 <main+0x8e>
+ 108:	06 c0       	rjmp	.+12     	; 0x116 <main+0x94>
+					{
+						flagMOD=0;
+						while(!READ_BIT(PIND,4))
+						{segment_print_mlx(x);}
+ 10a:	8c 2f       	mov	r24, r28
+ 10c:	0e 94 bc 00 	call	0x178	; 0x178 <segment_print_mlx>
+				for (int i=0;i<300;i++)
+				{
+					if(!READ_BIT(PIND,4))
+					{
+						flagMOD=0;
+						while(!READ_BIT(PIND,4))
+ 110:	84 9b       	sbis	0x10, 4	; 16
+ 112:	fb cf       	rjmp	.-10     	; 0x10a <main+0x88>
+				
+				for (int i=0;i<300;i++)
+				{
+					if(!READ_BIT(PIND,4))
+					{
+						flagMOD=0;
+ 114:	d0 e0       	ldi	r29, 0x00	; 0
+						while(!READ_BIT(PIND,4))
+						{segment_print_mlx(x);}
+					}
+					if(!READ_BIT(PIND,2))
+ 116:	82 99       	sbic	0x10, 2	; 16
+ 118:	16 c0       	rjmp	.+44     	; 0x146 <main+0xc4>
+					{
+						x=x+10;
+ 11a:	c6 5f       	subi	r28, 0xF6	; 246
+						if (x>=100)
+ 11c:	c4 36       	cpi	r28, 0x64	; 100
+ 11e:	88 f0       	brcs	.+34     	; 0x142 <main+0xc0>
+						x=0+x%10;
+ 120:	8d ec       	ldi	r24, 0xCD	; 205
+ 122:	c8 9f       	mul	r28, r24
+ 124:	81 2d       	mov	r24, r1
+ 126:	11 24       	eor	r1, r1
+ 128:	86 95       	lsr	r24
+ 12a:	86 95       	lsr	r24
+ 12c:	86 95       	lsr	r24
+ 12e:	88 0f       	add	r24, r24
+ 130:	98 2f       	mov	r25, r24
+ 132:	99 0f       	add	r25, r25
+ 134:	99 0f       	add	r25, r25
+ 136:	89 0f       	add	r24, r25
+ 138:	c8 1b       	sub	r28, r24
+ 13a:	03 c0       	rjmp	.+6      	; 0x142 <main+0xc0>
+						while(!READ_BIT(PIND,2))
+						{segment_print_mlx(x);}
+ 13c:	8c 2f       	mov	r24, r28
+ 13e:	0e 94 bc 00 	call	0x178	; 0x178 <segment_print_mlx>
+					if(!READ_BIT(PIND,2))
+					{
+						x=x+10;
+						if (x>=100)
+						x=0+x%10;
+						while(!READ_BIT(PIND,2))
+ 142:	82 9b       	sbis	0x10, 2	; 16
+ 144:	fb cf       	rjmp	.-10     	; 0x13c <main+0xba>
+						{segment_print_mlx(x);}
+
+					}
+					if(!READ_BIT(PIND,3))
+ 146:	83 99       	sbic	0x10, 3	; 16
+ 148:	0a c0       	rjmp	.+20     	; 0x15e <main+0xdc>
+					{
+						x++;
+ 14a:	cf 5f       	subi	r28, 0xFF	; 255
+						if (x==255)
+ 14c:	cf 3f       	cpi	r28, 0xFF	; 255
+ 14e:	29 f4       	brne	.+10     	; 0x15a <main+0xd8>
+						x=99;
+ 150:	c3 e6       	ldi	r28, 0x63	; 99
+ 152:	03 c0       	rjmp	.+6      	; 0x15a <main+0xd8>
+						while(!READ_BIT(PIND,3))
+						{segment_print_mlx(x);}
+ 154:	8c 2f       	mov	r24, r28
+ 156:	0e 94 bc 00 	call	0x178	; 0x178 <segment_print_mlx>
+					if(!READ_BIT(PIND,3))
+					{
+						x++;
+						if (x==255)
+						x=99;
+						while(!READ_BIT(PIND,3))
+ 15a:	83 9b       	sbis	0x10, 3	; 16
+ 15c:	fb cf       	rjmp	.-10     	; 0x154 <main+0xd2>
+						{segment_print_mlx(x);}
+					}
+					segment_print_mlx(x);
+ 15e:	8c 2f       	mov	r24, r28
+ 160:	0e 94 bc 00 	call	0x178	; 0x178 <segment_print_mlx>
+				}
+			}
+			else
+			{
+				
+				for (int i=0;i<300;i++)
+ 164:	0f 5f       	subi	r16, 0xFF	; 255
+ 166:	1f 4f       	sbci	r17, 0xFF	; 255
+ 168:	02 c0       	rjmp	.+4      	; 0x16e <main+0xec>
+ 16a:	00 e0       	ldi	r16, 0x00	; 0
+ 16c:	10 e0       	ldi	r17, 0x00	; 0
+ 16e:	0c 32       	cpi	r16, 0x2C	; 44
+ 170:	81 e0       	ldi	r24, 0x01	; 1
+ 172:	18 07       	cpc	r17, r24
+ 174:	3c f2       	brlt	.-114    	; 0x104 <main+0x82>
+ 176:	90 cf       	rjmp	.-224    	; 0x98 <main+0x16>
+
+00000178 <segment_print_mlx>:
+	int d1=d1/10;
+	SEGMENT_PORT=seg[d0]<<1;
+	SEGMENT_PORT=seg[d1]<<1;
+}
+void segment_print_mlx(u8 x)
+{
+ 178:	cf 93       	push	r28
+ 17a:	df 93       	push	r29
+ 17c:	cd b7       	in	r28, 0x3d	; 61
+ 17e:	de b7       	in	r29, 0x3e	; 62
+ 180:	2a 97       	sbiw	r28, 0x0a	; 10
+ 182:	0f b6       	in	r0, 0x3f	; 63
+ 184:	f8 94       	cli
+ 186:	de bf       	out	0x3e, r29	; 62
+ 188:	0f be       	out	0x3f, r0	; 63
+ 18a:	cd bf       	out	0x3d, r28	; 61
+	
+	char seg[10]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x67};
+ 18c:	9a e0       	ldi	r25, 0x0A	; 10
+ 18e:	e0 e6       	ldi	r30, 0x60	; 96
+ 190:	f0 e0       	ldi	r31, 0x00	; 0
+ 192:	de 01       	movw	r26, r28
+ 194:	11 96       	adiw	r26, 0x01	; 1
+ 196:	01 90       	ld	r0, Z+
+ 198:	0d 92       	st	X+, r0
+ 19a:	9a 95       	dec	r25
+ 19c:	e1 f7       	brne	.-8      	; 0x196 <segment_print_mlx+0x1e>
+	int d0 =x % 10;
+ 19e:	9d ec       	ldi	r25, 0xCD	; 205
+ 1a0:	89 9f       	mul	r24, r25
+ 1a2:	91 2d       	mov	r25, r1
+ 1a4:	11 24       	eor	r1, r1
+ 1a6:	e9 2f       	mov	r30, r25
+ 1a8:	e6 95       	lsr	r30
+ 1aa:	e6 95       	lsr	r30
+ 1ac:	e6 95       	lsr	r30
+ 1ae:	ee 0f       	add	r30, r30
+ 1b0:	2e 2f       	mov	r18, r30
+ 1b2:	22 0f       	add	r18, r18
+ 1b4:	22 0f       	add	r18, r18
+ 1b6:	e2 0f       	add	r30, r18
+ 1b8:	8e 1b       	sub	r24, r30
+ 1ba:	e8 2f       	mov	r30, r24
+ 1bc:	f0 e0       	ldi	r31, 0x00	; 0
+	int d1=x/10;
+ 1be:	96 95       	lsr	r25
+ 1c0:	96 95       	lsr	r25
+ 1c2:	96 95       	lsr	r25
+	
+	SET_BIT(SEGMENT_EN_PORT,S2_EN);
+ 1c4:	85 b3       	in	r24, 0x15	; 21
+ 1c6:	80 68       	ori	r24, 0x80	; 128
+ 1c8:	85 bb       	out	0x15, r24	; 21
+	SEGMENT_PORT=seg[d1]<<1;
+ 1ca:	a1 e0       	ldi	r26, 0x01	; 1
+ 1cc:	b0 e0       	ldi	r27, 0x00	; 0
+ 1ce:	ac 0f       	add	r26, r28
+ 1d0:	bd 1f       	adc	r27, r29
+ 1d2:	a9 0f       	add	r26, r25
+ 1d4:	b1 1d       	adc	r27, r1
+ 1d6:	8c 91       	ld	r24, X
+ 1d8:	88 0f       	add	r24, r24
+ 1da:	8b bb       	out	0x1b, r24	; 27
+	CLR_BIT(SEGMENT_EN_PORT,S1_EN);
+ 1dc:	85 b3       	in	r24, 0x15	; 21
+ 1de:	8f 7b       	andi	r24, 0xBF	; 191
+ 1e0:	85 bb       	out	0x15, r24	; 21
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1e2:	82 e0       	ldi	r24, 0x02	; 2
+ 1e4:	8a 95       	dec	r24
+ 1e6:	f1 f7       	brne	.-4      	; 0x1e4 <segment_print_mlx+0x6c>
+ 1e8:	00 c0       	rjmp	.+0      	; 0x1ea <segment_print_mlx+0x72>
+	_delay_us(1);
+	
+	SET_BIT(SEGMENT_EN_PORT,S1_EN);
+ 1ea:	85 b3       	in	r24, 0x15	; 21
+ 1ec:	80 64       	ori	r24, 0x40	; 64
+ 1ee:	85 bb       	out	0x15, r24	; 21
+	SEGMENT_PORT=seg[d0]<<1;
+ 1f0:	81 e0       	ldi	r24, 0x01	; 1
+ 1f2:	90 e0       	ldi	r25, 0x00	; 0
+ 1f4:	8c 0f       	add	r24, r28
+ 1f6:	9d 1f       	adc	r25, r29
+ 1f8:	e8 0f       	add	r30, r24
+ 1fa:	f9 1f       	adc	r31, r25
+ 1fc:	80 81       	ld	r24, Z
+ 1fe:	88 0f       	add	r24, r24
+ 200:	8b bb       	out	0x1b, r24	; 27
+	CLR_BIT(SEGMENT_EN_PORT,S2_EN);
+ 202:	85 b3       	in	r24, 0x15	; 21
+ 204:	8f 77       	andi	r24, 0x7F	; 127
+ 206:	85 bb       	out	0x15, r24	; 21
+ 208:	92 e0       	ldi	r25, 0x02	; 2
+ 20a:	9a 95       	dec	r25
+ 20c:	f1 f7       	brne	.-4      	; 0x20a <segment_print_mlx+0x92>
+ 20e:	00 c0       	rjmp	.+0      	; 0x210 <segment_print_mlx+0x98>
+	_delay_us(1);
+ 210:	2a 96       	adiw	r28, 0x0a	; 10
+ 212:	0f b6       	in	r0, 0x3f	; 63
+ 214:	f8 94       	cli
+ 216:	de bf       	out	0x3e, r29	; 62
+ 218:	0f be       	out	0x3f, r0	; 63
+ 21a:	cd bf       	out	0x3d, r28	; 61
+ 21c:	df 91       	pop	r29
+ 21e:	cf 91       	pop	r28
+ 220:	08 95       	ret
+
+00000222 <_exit>:
+ 222:	f8 94       	cli
+
+00000224 <__stop_program>:
+ 224:	ff cf       	rjmp	.-2      	; 0x224 <__stop_program>

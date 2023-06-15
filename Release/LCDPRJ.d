@@ -1,0 +1,1 @@
+LCDPRJ.d LCDPRJ.o: .././LCDPRJ.c
