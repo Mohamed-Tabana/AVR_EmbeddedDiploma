@@ -17,14 +17,21 @@
 /*********************pin cfg*******************************/
 #define LCD_MODE _4_BIT
 
-#define RS PINA3
+#define RS PINA1
 #define EN PINA2
 
-#define D7 PINC7
-#define D6 PINC6
-#define D5 PINC5
-#define D4 PINB0
+#define D7 PINA6
+#define D6 PINA5
+#define D5 PINA4
+#define D4 PINA3
 
+//#define RS PINA3
+//#define EN PINA2
+//
+//#define D7 PINC7
+//#define D6 PINC6
+//#define D5 PINC5
+//#define D4 PINB0
 #define LCD_PORT PA
 
 /**********************************************************/
