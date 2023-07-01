@@ -40,6 +40,8 @@ HAL\Sensors.c
 
 HAL\ServoMotor.c
 
+HAL\UltraSonic.c
+
 LCDPRJ.c
 
 LEC1.c

@@ -62,6 +62,7 @@ C_SRCS +=  \
 ../HAL/RGB.c \
 ../HAL/Sensors.c \
 ../HAL/ServoMotor.c \
+../HAL/UltraSonic.c \
 ../LCDPRJ.c \
 ../LEC1.c \
 ../main.c \
@@ -109,6 +110,7 @@ HAL/MOTOR_cfg.o \
 HAL/RGB.o \
 HAL/Sensors.o \
 HAL/ServoMotor.o \
+HAL/UltraSonic.o \
 LCDPRJ.o \
 LEC1.o \
 main.o \
@@ -149,6 +151,7 @@ HAL/MOTOR_cfg.o \
 HAL/RGB.o \
 HAL/Sensors.o \
 HAL/ServoMotor.o \
+HAL/UltraSonic.o \
 LCDPRJ.o \
 LEC1.o \
 main.o \
@@ -189,6 +192,7 @@ HAL/MOTOR_cfg.d \
 HAL/RGB.d \
 HAL/Sensors.d \
 HAL/ServoMotor.d \
+HAL/UltraSonic.d \
 LCDPRJ.d \
 LEC1.d \
 main.d \
@@ -229,6 +233,7 @@ HAL/MOTOR_cfg.d \
 HAL/RGB.d \
 HAL/Sensors.d \
 HAL/ServoMotor.d \
+HAL/UltraSonic.d \
 LCDPRJ.d \
 LEC1.d \
 main.d \
@@ -390,6 +395,13 @@ HAL/Sensors.o: ../HAL/Sensors.c
 	
 
 HAL/ServoMotor.o: ../HAL/ServoMotor.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DNDEBUG  -I".." -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../APP" -I"../MCAL" -I"../HAL" -I"../SERVICES" -I"../RTOS" -I"../FreeRTOS"  -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+HAL/UltraSonic.o: ../HAL/UltraSonic.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DNDEBUG  -I".." -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../APP" -I"../MCAL" -I"../HAL" -I"../SERVICES" -I"../RTOS" -I"../FreeRTOS"  -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

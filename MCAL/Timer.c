@@ -132,6 +132,7 @@ void TIMER1_Init(Timer1Mode_type mode,Timer1Scaler_type scaler)
 		SET_BIT(TCCR1B,WGM12);
 		SET_BIT(TCCR1B,WGM13);
 		break;
+		
 	}
 
 	TCCR1B&=0XF8;
@@ -222,7 +223,17 @@ void Timer1_OCB_InterruptDisable(void)
 {
 	CLR_BIT(TIMSK,OCIE1B);
 }
-
+void Timer1_ICU_SelectEdge(ICU_EDGE_type copy_eEdgeType)
+{
+	
+	
+	TCCR1B &=~(0b1<<ICES1);
+	TCCR1B |= (copy_eEdgeType<<ICES1);
+	// Cancel Noise
+	TCCR1B &=~(0b1<<ICNC1);
+	TCCR1B |= (0b1<<ICNC1);
+	
+}
 /*********************************Timer 1 Call Back functions*****************************************/
 
 void Timer1_OVF_SetCallBack(void(*LocalFptr)(void))

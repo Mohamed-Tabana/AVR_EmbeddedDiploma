@@ -81,8 +81,8 @@ typedef enum
 }OC1B_Mode_type;
 
 typedef enum {
-	RISING,
-	FALLING
+	FALLING=0,
+	RISING=1
 }ICU_EDGE_type;
 
 
@@ -104,6 +104,8 @@ void Timer1_OCA_InterruptDisable(void);
 
 void Timer1_OCB_InterruptEnable(void);
 void Timer1_OCB_InterruptDisable(void);
+
+void Timer1_ICU_SelectEdge(ICU_EDGE_type copy_eEdgeType);
 
 void Timer1_OVF_SetCallBack(void(*LocalFptr)(void));
 void Timer1_OCA_SetCallBack(void(*LocalFptr)(void));
